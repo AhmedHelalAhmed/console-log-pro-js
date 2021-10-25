@@ -1,0 +1,1 @@
+console.info('This is an informative message');
