@@ -1,0 +1,1 @@
+## [Examples of console like pro ](https://markodenic.com/use-console-log-like-a-pro/)
