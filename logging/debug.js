@@ -1,1 +1,0 @@
-console.debug('This is a debug message');

@@ -1,7 +1,3 @@
-const logMessage = () => {
+export function loggerCounter() {
     console.count('log Message no');
-}
-
-for (const logMessageElement of [1, 2, 3]) {
-    logMessage();
 }
