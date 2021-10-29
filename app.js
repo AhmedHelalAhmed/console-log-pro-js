@@ -135,6 +135,9 @@ function getOneQuote() {
         .then(quotes => quotes.splice(0, 1));
 }
 
-getOneQuote().then((quote) => {
-    console.warn(quote);
+getOneQuote().then((quotes) => {
+    console.dir(quotes);
+    console.log(quotes);
 });
+
+// console.memory => should used in browser not in code
