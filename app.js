@@ -4,6 +4,7 @@ import substitution from "./string-substitutions.js";
 import {clear} from "./clear.js";
 import asserter from "./assert.js";
 import {loggerCounter} from "./count.js";
+import quotesService from "./quotes-service.js";
 
 logger.logGeneralMessage();
 logger.logInformationMessage();
@@ -46,3 +47,94 @@ while (iterator < 3) {
 }
 
 clear();
+
+const getFiveQuotes = (isDebug = false) => {
+    if (isDebug) {
+        console.trace('Here is the trace');
+    }
+    return quotesService.execute(5);
+}
+
+getFiveQuotes().then(quotes => {
+    console.log(quotes);
+});
+
+clear();
+
+
+getFiveQuotes().then(quotes => {
+    quotes.forEach(quote => {
+        console.log(quote)
+    });
+}).then(() => {
+    clear();
+});
+
+
+getFiveQuotes().then(quotes => {
+    quotes.forEach(quote => {
+        if (quote.author === "Abraham Lincoln") {
+            console.warn(quote);
+            console.count('Wayne Dyer quotes: ');
+        } else if (quote.author === "Thomas Edison") {
+            console.error(quote);
+        } else {
+            console.log(quote);
+        }
+    });
+}).then(() => {
+    clear();
+});
+
+
+getFiveQuotes().then(quotes => {
+    console.table(quotes);
+}).then(() => {
+    clear();
+});
+
+
+getFiveQuotes().then(quotes => {
+    console.group('quotes list');
+    quotes.forEach((quote, index) => {
+        const {author, text} = quote;
+        console.groupCollapsed(`quote: ${index + 1}`);
+        console.log(author);
+        console.warn('said');
+        console.log(text);
+        console.groupEnd();
+    });
+    console.groupEnd();
+
+}).then(() => {
+    clear();
+});
+
+
+quotesService.execute(500).then(quotes => {
+    console.time('Time for foreach');
+    quotes.forEach(quote => {
+        console.count();
+    });
+    console.timeEnd('Time for foreach');
+});
+
+
+quotesService.execute(500).then(quotes => {
+    console.time('Time for table');
+    console.table(quotes);
+    console.timeEnd('Time for table');
+
+}).then(() => {
+    clear();
+});
+
+
+function getOneQuote() {
+    return getFiveQuotes(confirm('Trace?'))
+        .then(quotes => quotes.splice(0, 1));
+}
+
+getOneQuote().then((quote) => {
+    console.warn(quote);
+});
